@@ -1,5 +1,0 @@
-Day0.cpg.methyl.tss±1000.bdg.txt
-Day2-noDFO.cpg.methyl.tss±1000.bdg.txt
-Day8-noDFO.cpg.methyl.tss±1000.bdg.txt
-Day2-DFO24h.cpg.methyl.tss±1000.bdg.txt
-Day8-DFO48h.cpg.methyl.tss±1000.bdg.txt
