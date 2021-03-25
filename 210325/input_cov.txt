@@ -1,0 +1,5 @@
+Day0.cpg.cover.tss±1000.bdg.txt
+Day2-noDFO.cpg.cover.tss±1000.bdg.txt
+Day8-noDFO.cpg.cover.tss±1000.bdg.txt
+Day2-DFO24h.cpg.cover.tss±1000.bdg.txt
+Day8-DFO48h.cpg.cover.tss±1000.bdg.txt
