@@ -19,8 +19,7 @@ for($i=1;$i<@ARGV;$i++){
 
     open(DATA, $ARGV[$i]);
     
-    mkdir $dir."/output"; 
-    open(OUT, ">".$dir."/output/".$name.".tss±1000.bdg.txt");
+    open(OUT, ">".$dir."/".$name.".tss±1000.bdg.txt");
 
     $count = 0;
     $text = "";
