@@ -28,6 +28,8 @@ while (<IN>){
     $line = $_;
     @data = &getline($line);
     
+    print $line;
+    
     if($count%1000==0){
         print "$data[0]\t$data[1]\t$tmp_pointer\n";
         print POINT "$data[0]\t$data[1]\t$tmp_pointer\n";

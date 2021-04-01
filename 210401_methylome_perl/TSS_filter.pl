@@ -21,6 +21,7 @@ for($i=1;$i<@ARGV;$i++){
     $text = "";
     $pointer=0;
 
+
     seek(TSS,0,0);
     while (<TSS>){
 
@@ -43,18 +44,16 @@ for($i=1;$i<@ARGV;$i++){
         if($chr =~ /random$/ or $chr =~ /^LAMDA/){
             next;
         }
-
-
+        
         #検索
         seek(DATA,$pointer,0);
         while (<DATA>){
             #一行を取得
             $line = $_;
             @data = &getline($line);
-
+        
             #場合わけ
             if($data[0] eq $chr and $data[1] >= $start and $data[1] < $end){
-                #print $line."\n";
                 print OUT $line."\n";
 
             }elsif($data[0] eq $chr and $data[1] >= $end){

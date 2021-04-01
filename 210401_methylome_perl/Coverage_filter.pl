@@ -83,7 +83,6 @@ open(OUT, ">".$outputname);
 #while処理用のダミーとして、ファイルを開く
 open(DUM, $in_arr[0]);
 
-
 #「カバレッジが指定範囲内のときのみ出力」###########################################################
 
 $count=0;
@@ -113,6 +112,8 @@ while (<DUM>){
     $methmin = min @metharray;
     $methmax = max @metharray;
     
+    
+    
     if($covmin >= $min and $covmax <= $max){
         $text .= "$data[0]\t$data[1]\t$data[2]";
         for($i=0;$i<@metharray;$i++){
@@ -123,7 +124,7 @@ while (<DUM>){
 
     #1000行ごとに出力して、出力待ち変数をリセット
     if($count%10000 == 0){
-        print "$data[0]\t$data[1]\t$data[2]\n";
+        #print "$data[0]\t$data[1]\t$data[2]\n";
         print OUT $text;
         $text = "";
     }
