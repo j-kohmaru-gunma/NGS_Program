@@ -4,7 +4,7 @@ use FindBin;
 
 open(TSS, $ARGV[0]);
 #########################################################################################
-#TSS周辺のメチル化情報を順番に取得
+#TSS周辺のメチル化情報を順番に取得#Extract methylation levels and read depth for individual CpGs located within 1kb upstream regions from all TSSs on the genome
 #########################################################################################
 
 for($i=1;$i<@ARGV;$i++){
@@ -31,7 +31,7 @@ for($i=1;$i<@ARGV;$i++){
         $chr = $tssdata[0];
         $strand = $tssdata[3];
 
-        #ストランドの向きによって、範囲を場合分けして指定
+        #ストランドの向きによって、範囲を場合分けして指定#Specify a 1kb upstream region from TSS based on strandness of a gene
         if($strand eq "+"){
             $start = $tssdata[1] - 1000 - 1;
             $end = $tssdata[1] - 1;
@@ -40,7 +40,7 @@ for($i=1;$i<@ARGV;$i++){
             $end = $tssdata[2] + 1000;
         }
 
-        #LAMDA,randomeは飛ばす
+        #LAMDA,randomeは飛ばす#Skip chrN_random and LAMBDA「ラムダ」スペル確認
         if($chr =~ /random$/ or $chr =~ /^LAMDA/){
             next;
         }
@@ -65,7 +65,7 @@ for($i=1;$i<@ARGV;$i++){
 }
 
 ########################################################################
-#サブルーチン
+#サブルーチン#Subroutine
 ########################################################################
 sub getline{
     ($x) = @_;
