@@ -2,7 +2,7 @@
 #perl Coverage_filter_200929.pl -max <Max Coverage> -min <min coverage> -c <Coverage._File_list.txt>  -i <Input_File_list.txt> -o <Output name>
 
 #（モジュールの読込）###########################################################
-use Getopt::Long;           #コマンドラインオプション用
+use Getopt::Long;           #コマンドラインオプション用#小松編集テスト
 use FindBin;
 use List::Util qw(max min);
 
