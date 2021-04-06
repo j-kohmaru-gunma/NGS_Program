@@ -1,8 +1,8 @@
 #（使用法）#(How to use)###########################################################
 #perl Coverage_filter_200929.pl -max <Max Coverage> -min <min coverage> -c <Coverage._File_list.txt>  -i <Input_File_list.txt> -o <Output name>
 
-#（モジュールの読込）###########################################################
-use Getopt::Long;           #コマンドラインオプション用#小松編集テスト
+#（モジュールの読込）#(Loading mudules)###########################################################
+use Getopt::Long;           #コマンドラインオプション用#小松編集テスト#For command line options
 use FindBin;
 use List::Util qw(max min);
 
@@ -32,9 +32,9 @@ print "Output\t：".$outputname."\n";
 print "--------------------------------------\n";
 print "\n";
 
-#（ファイルを開く）###########################################################
-open(INPUT, $inputfile);       #メチル化率bdgファイル
-open(COV, $covfile);    #遺伝子情報記述bedファイル
+#（ファイルを開く）#(Open files)###########################################################
+open(INPUT, $inputfile);       #メチル化率bdgファイル#a bdg file for methylaton levels
+open(COV, $covfile);    #遺伝子情報記述bedファイル#a bed file for gene location
 
 #インプットファイルの読込#Loading a methylation level file
 print "input file\n";
@@ -90,7 +90,7 @@ $text = "";
 
 while (<DUM>){
 
-    #各ファイルから一行分のデータを取得
+    #各ファイルから一行分のデータを取得#Extract one line from each file
     @metharray = ();
     for($i=0;$i<@in_arr;$i++){
         $hdl = "IN".$i;
@@ -129,7 +129,7 @@ while (<DUM>){
         $text = "";
     }
 
-    #行数カウント追加
+    #行数カウント追加#Add line number counts
     $count++;
 }
 
