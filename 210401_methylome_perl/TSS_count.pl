@@ -2,7 +2,7 @@ use File::Basename;
 use FindBin;
 
 #########################################################################################
-#出力ファイルを開く
+#出力ファイルを開く#Open output files
 #########################################################################################
 $dir = $FindBin::Bin;
 mkdir "$dir/output";
@@ -15,7 +15,7 @@ open(OUT2, ">$dir/output/TSS_methyl_result.txt");
 #########################################################################################
 
 
-#検索効率化のため、位置ごとにファイルポインターを作成
+#検索効率化のため、位置ごとにファイルポインターを作成#for efficient search
 $chr = "";
 $pos = 0;
 $count = 0;
@@ -40,7 +40,7 @@ while (<IN>){
 }
 
 
-#TSSごとのメチル化情報を抽出
+#TSSごとのメチル化情報を抽出#Extract CpG methylation levels for each TSS
 print OUT "chr\tstart\tend\tstrand\ttranscript_id\tgene_id\t";
 print OUT "D2(-)<-0.25\tD2(+)<-0.25\tD8(-)<-0.25\tD8(+)<-0.25\t";
 print OUT "D2(-)<-0.5\tD2(+)<-0.5\tD8(-)<-0.5\tD8(+)<-0.5\n";
@@ -58,7 +58,7 @@ while (<TSS>){
     print $line;
     @tssdata = &getline($line);
 
-    #ストランドの向きによって、範囲を場合分けして、TSS上流1000bpの範囲を指定
+    #ストランドの向きによって、範囲を場合分けして、TSS上流1000bpの範囲を指定#Specify a 1kb upstream region from TSS based on strandness of a gene
     $chr = $tssdata[0];
     if($tssdata[3] eq "+"){
         $start = $tssdata[1] - 1000 - 1;
@@ -118,7 +118,7 @@ while (<TSS>){
             
             $tssinfo = "\t\t\t\t\t";
             
-            #条件にあっていた場合、カウント
+            #条件にあっていた場合、カウント#Count if difference in methylation levels is "0.25 or more" or "0.5 or more"
             if($data[4] - $data[3] >= 0.25){$diff[0]++;}   #D2(-)
             if($data[5] - $data[3] >= 0.25){$diff[1]++;}   #D8(-)
             if($data[6] - $data[3] >= 0.25){$diff[2]++;}   #D2(+)
@@ -144,7 +144,7 @@ while (<TSS>){
 }
 
 ########################################################################
-#サブルーチン
+#サブルーチン#Subroutine
 ########################################################################
 sub getline{
     ($x) = @_;
