@@ -4,7 +4,7 @@ use FindBin;
 
 open(TSS, $ARGV[0]);
 #########################################################################################
-#TSS周辺のメチル化情報を順番に取得#Extract methylation levels and read depth for individual CpGs located within 1kb upstream regions from all TSSs on the genome
+# Extract methylation levels and read depth for individual CpGs located within 1kb upstream regions from all TSSs on the genome
 #########################################################################################
 
 for($i=1;$i<@ARGV;$i++){
@@ -20,18 +20,17 @@ for($i=1;$i<@ARGV;$i++){
     $count = 0;
     $text = "";
     $pointer=0;
-
-
+    
     seek(TSS,0,0);
     while (<TSS>){
 
-        #一行を取得して、配列としてdata変数に格納
+        #Read one line from bdg file and get chromosome number & strand data
         $line = $_;
         @tssdata = &getline($line);
         $chr = $tssdata[0];
         $strand = $tssdata[3];
 
-        #ストランドの向きによって、範囲を場合分けして指定#Specify a 1kb upstream region from TSS based on strandness of a gene
+        #Specify a 1kb upstream region from TSS based on strandness of a gene
         if($strand eq "+"){
             $start = $tssdata[1] - 1000 - 1;
             $end = $tssdata[1] - 1;
@@ -40,19 +39,17 @@ for($i=1;$i<@ARGV;$i++){
             $end = $tssdata[2] + 1000;
         }
 
-        #LAMDA,randomeは飛ばす#Skip chrN_random and LAMBDA「ラムダ」スペル確認
-        if($chr =~ /random$/ or $chr =~ /^LAMDA/){
+        #Skip chrN_random and LAMBDA
+        if($chr =~ /random$/ or $chr =~ /^LAMBDA/){
             next;
         }
         
-        #検索
+        #Search and output data within 1kb upstream regions from TSS
         seek(DATA,$pointer,0);
         while (<DATA>){
-            #一行を取得
             $line = $_;
             @data = &getline($line);
         
-            #場合わけ
             if($data[0] eq $chr and $data[1] >= $start and $data[1] < $end){
                 print OUT $line."\n";
 
@@ -65,7 +62,7 @@ for($i=1;$i<@ARGV;$i++){
 }
 
 ########################################################################
-#サブルーチン#Subroutine
+# Subroutine
 ########################################################################
 sub getline{
     ($x) = @_;
