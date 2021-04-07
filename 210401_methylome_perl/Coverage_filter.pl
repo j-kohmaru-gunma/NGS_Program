@@ -1,7 +1,7 @@
 ###########################################################
 #(How to use)
 ###########################################################
-#perl Coverage_filter_200929.pl -max <Max Coverage> -min <min coverage> -c <Coverage._File_list.txt>  -i <Input_File_list.txt> -o <Output name>
+#perl Coverage_filter.pl -max <Max Coverage> -min <min coverage> -c <Coverage._File_list.txt>  -i <Input_File_list.txt> -o <Output name>
 
 ###########################################################
 #(Importing modules)
