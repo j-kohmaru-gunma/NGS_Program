@@ -11,10 +11,8 @@ open(OUT, ">$dir/output/TSS_count_result.txt");
 open(OUT2, ">$dir/output/TSS_methyl_result.txt");
 
 #########################################################################################
-#TSS周辺のメチル化情報を順番に取得
+#Generate Index for efficient search
 #########################################################################################
-
-#検索効率化のため、位置ごとにファイルポインターを作成#for efficient search
 $chr = "";
 $pos = 0;
 $count = 0;
@@ -23,7 +21,6 @@ open(IN, $ARGV[1]);
 open(POINT, ">$dir/output/file_pointer.txt");
 while (<IN>){
 
-    #一行を取得
     $line = $_;
     @data = &getline($line);
     
@@ -38,8 +35,9 @@ while (<IN>){
     $count++;
 }
 
-
-#TSSごとのメチル化情報を抽出#Extract CpG methylation levels for each TSS
+#########################################################################################
+#Extract CpG methylation levels for each TSS
+#########################################################################################
 print OUT "chr\tstart\tend\tstrand\ttranscript_id\tgene_id\t";
 print OUT "D2(-)<-0.25\tD2(+)<-0.25\tD8(-)<-0.25\tD8(+)<-0.25\t";
 print OUT "D2(-)<-0.5\tD2(+)<-0.5\tD8(-)<-0.5\tD8(+)<-0.5\n";
@@ -52,12 +50,11 @@ while (<TSS>){
 
     @diff = (0,0,0,0,0,0,0,0);
 
-    #一行を取得
     $line = $_;
     print $line;
     @tssdata = &getline($line);
 
-    #ストランドの向きによって、範囲を場合分けして、TSS上流1000bpの範囲を指定#Specify a 1kb upstream region from TSS based on strandness of a gene
+    #Specify a 1kb upstream region from TSS based on strandness of a gene
     $chr = $tssdata[0];
     if($tssdata[3] eq "+"){
         $start = $tssdata[1] - 1000 - 1;
@@ -67,11 +64,11 @@ while (<TSS>){
         $end = $tssdata[2] + 1000;
     }
     
-    #TSSの情報を一時保存、OUT2にのみ出力
+    #Output TSS information
     $tssinfo = "$chr\t".($start+1)."\t$end\t$tssdata[3]\t$tssdata[4]\t$tssdata[5]";
     print OUT "$tssinfo\t";
 
-    #インプットファイルを、TSS近くのファイルポインターまで移動
+    #Using Index, find the file pointer just before TSS
     open(POINT, "$dir/output/file_pointer.txt");
     $pointer = 0;
     $flg=0;
@@ -89,22 +86,19 @@ while (<TSS>){
         }
         $pointer = $data[2];
     }
-    
     seek(IN,$pointer,0);
     
-    #一行ずつ場合わけして出力
+    
+    #Counting methylation 
     while(<IN>){
         
-        #一行を取得
         $line = $_;
         @data = &getline($line);
 
-        #解析範囲を超えていたら処理中断
         if(($chr eq $data[0] and $end < $data[1]) or $chr ne $data[0]){
             last;
         }
     
-        #染色体が同じで解析範囲内であれば出力
         if($chr eq $data[0] and $start <= $data[1] and $end > $data[1]){
         
             if($tssdata[3] eq "+"){
@@ -117,7 +111,7 @@ while (<TSS>){
             
             $tssinfo = "\t\t\t\t\t";
             
-            #条件にあっていた場合、カウント#Count if difference in methylation levels is "0.25 or more" or "0.5 or more"
+            #Count if difference in methylation levels is "0.25 or more" or "0.5 or more"
             if($data[4] - $data[3] >= 0.25){$diff[0]++;}   #D2(-)
             if($data[5] - $data[3] >= 0.25){$diff[1]++;}   #D8(-)
             if($data[6] - $data[3] >= 0.25){$diff[2]++;}   #D2(+)
@@ -130,6 +124,8 @@ while (<TSS>){
         }
     
     }
+    
+    #Output the methylation counting data
     print OUT "$diff[0]";
     print OUT "\t$diff[2]";
     print OUT "\t$diff[1]";
