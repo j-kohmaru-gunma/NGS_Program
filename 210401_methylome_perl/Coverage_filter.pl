@@ -42,7 +42,7 @@ print "\n";
 #(Open files)
 ###########################################################
 
-open(INPUT, $inputfile);    #a bdg file for methylaton levels
+open(INPUT, $inputfile);    #a bdg file for methylation levels
 open(COV, $covfile);        #a bed file for gene location
 
 #Loading a methylation level file
