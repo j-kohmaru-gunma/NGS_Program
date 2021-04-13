@@ -43,7 +43,7 @@ print "\n";
 ###########################################################
 
 open(INPUT, $inputfile);    #a bdg file for methylation levels
-open(COV, $covfile);        #a bed file for gene location
+open(COV, $covfile);        #a bed file for gene locations
 
 #Loading a methylation level file
 print "input file\n";
@@ -117,7 +117,7 @@ while (<DUM>){
         push(@covarray,$data[3]);
     }
     
-    #When coverage value within a specified range, Store the data in $text variable
+    #When a coverage value is within a specified range, store the data in $text variable
     $covmin = min @covarray;
     $covmax = max @covarray;
     $methmin = min @metharray;
@@ -130,7 +130,7 @@ while (<DUM>){
         $text .= "\n";
     }
     
-    #Write $text variable to the output file and Initialize every 1000 lines
+    #Write $text variable to the output file and initialize every 1000 lines
     if($count%10000 == 0){
         print OUT $text;
         $text = "";
