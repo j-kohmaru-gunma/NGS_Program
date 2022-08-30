@@ -125,10 +125,10 @@ while (<ATAC>){
 }
 
 print OUT "\n";;
-print OUT "出力日時：$year年$mon月$mday日 $hour時$min分$sec秒";
+print OUT "Output Date:$year/$mon/$mday $hour:$min:$sec";
 
 print OUT2 "\n";;
-print OUT2 "出力日時：$year年$mon月$mday日 $hour時$min分$sec秒";
+print OUT2 "Output Date:$year/$mon/$mday $hour:$min:$sec";
 
 ########################################################################
 #Subroutine
