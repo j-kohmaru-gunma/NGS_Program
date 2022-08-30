@@ -32,8 +32,8 @@ for($i=1;$i<@ARGV;$i++){
         
     }
     
-    print OUT "\n";
-    print OUT "出力日時：$year年$mon月$mday日 $hour時$min分$sec秒";
+    print OUT "\n";;
+    print OUT "Output Date:$year/$mon/$mday $hour:$min:$sec";
 }
 
 ########################################################################
