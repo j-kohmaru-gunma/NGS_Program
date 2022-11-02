@@ -111,15 +111,15 @@ while (<TSS>){
             
             $tssinfo = "\t\t\t\t\t";
             
-            #Count if difference in methylation levels is "0.25 or more" or "0.5 or more"
-            if($data[4] - $data[3] >= 0.25){$diff[0]++;}   #D2(-)
-            if($data[5] - $data[3] >= 0.25){$diff[1]++;}   #D8(-)
-            if($data[6] - $data[3] >= 0.25){$diff[2]++;}   #D2(+)
-            if($data[7] - $data[3] >= 0.25){$diff[3]++;}   #D8(+)
-            if($data[4] - $data[3] >= 0.5){$diff[4]++;}   #D2(-)
-            if($data[5] - $data[3] >= 0.5){$diff[5]++;}   #D8(-)
-            if($data[6] - $data[3] >= 0.5){$diff[6]++;}   #D2(+)
-            if($data[7] - $data[3] >= 0.5){$diff[7]++;}   #D8(+)
+            #Count if difference in methylation levels is "-0.25 or less" or "-0.5 or less"
+            if($data[4] - $data[3] <= -0.25){$diff[0]++;}   #D2(-)
+            if($data[5] - $data[3] <= -0.25){$diff[1]++;}   #D8(-)
+            if($data[6] - $data[3] <= -0.25){$diff[2]++;}   #D2(+)
+            if($data[7] - $data[3] <= -0.25){$diff[3]++;}   #D8(+)
+            if($data[4] - $data[3] <= -0.5){$diff[4]++;}   #D2(-)
+            if($data[5] - $data[3] <= -0.5){$diff[5]++;}   #D8(-)
+            if($data[6] - $data[3] <= -0.5){$diff[6]++;}   #D2(+)
+            if($data[7] - $data[3] <= -0.5){$diff[7]++;}   #D8(+)
             
         }
     
