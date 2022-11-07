@@ -46,17 +46,31 @@ for($i=1;$i<@ARGV;$i++){
         
         #Search and output data within 1kb upstream regions from TSS
         seek(DATA,$pointer,0);
+        $flg=0;
         while (<DATA>){
             $line = $_;
             @data = &getline($line);
         
             if($data[0] eq $chr and $data[1] >= $start and $data[1] < $end){
-                print OUT $line."\n";
+                $flg=1;
+                $text .= $line."\n";
 
             }elsif($data[0] eq $chr and $data[1] >= $end){
                 last;
+                
+            }elsif($flg==1){
+                last;
+                
+            }elsif($data[0] gt $chr){
+                last;
             }
+            
             $pointer = tell(DATA);
+        }
+        if($count%1000==0){
+            print $line."\n";
+            print OUT $text;
+            $text = "";
         }
     }
 }
